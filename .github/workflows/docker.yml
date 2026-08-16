@@ -27,8 +27,6 @@
 #         run: |
 #           docker push vikashav/workflow4:latest
 
-
-
 name: Docker CI/CD
 
 on:
@@ -48,9 +46,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: set up node js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       - name: Install dependencies
         run: npm install
 
+      - name : Run Prettier check
+        run: npm run format:check  
+
+      - name: Run ESLint check
+        run: npm run lint  
+
+      - name: Build project
+        run: npm run build
 
       - name: Build Docker image
         run: |
